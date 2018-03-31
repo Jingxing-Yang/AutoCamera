@@ -6,7 +6,7 @@ var port = process.env.PORT || 3000;
 var initRouter = express.Router();
 initRouter.get('/',function(req,res){
 	console.log("Request Received"); 
-	res.json({message: 'Hello World'});
+	res.send("Hello World");
 });
 
 var router = express.Router();
