@@ -1,10 +1,14 @@
 var express = require('express');
+var bodyParser = require("body-parser");
 var app = express();
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 var port = process.env.PORT || 3000;
 
-var initRouter = express.Router();
-initRouter.get('/',function(req,res){
+var testRouter = express.Router();
+testRouter.get('/',function(req,res){
 	console.log("Request Received"); 
 	res.send("Hello World");
 });
@@ -16,8 +20,18 @@ router.get('/:id',function(req,res){
 	res.json({message: id});
 });
 
-app.use('/test',initRouter);
+
+var handMotionRouter = express.Router();
+handMotionRouter.post('/',function(req,res){
+	console.log(req.body);
+	//var text = req.body.message
+	res.send("Message received");
+});
+
+
+app.use('/test',testRouter);
 app.use('/api',router);
+app.use('/handMotion',handMotionRouter);
 
 
 // Start listening for HTTP requests
