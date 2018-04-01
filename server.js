@@ -2,6 +2,7 @@ var express = require('express');
 var bodyParser = require("body-parser");
 var cv = require('./cv');
 var fs = require('fs');// test
+var iot = require('./iot'); // test
 var app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -58,11 +59,28 @@ picRouter.get('/',function(req,res){
 	});
 });
 
+var num = 1024;
+///////////////////
+
+
+
+
+
+var iotRouter = express.Router();
+iotRouter.get('/',function(req,res){
+	var jsonObj = {'data': num};
+	var payload = JSON.stringify(jsonObj);
+	num++;
+	iot.sendCommandToIot(payload);
+	res.send(payload);
+});
+
 app.use('/test',testRouter);
 app.use('/api',router);
 app.use('/handMotion',handMotionRouter);
 app.use('/temp',tempMotionRouter);
 app.use('/pic',picRouter); //test only
+app.use('/iot',iotRouter); //test only
 
 
 
