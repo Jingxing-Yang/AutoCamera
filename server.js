@@ -28,10 +28,19 @@ handMotionRouter.post('/',function(req,res){
 	res.send("Message received");
 });
 
+var tempMotionRouter = express.Router();
+handMotionRouter.post('/',function(req,res){
+	var temperature = console.log(req.body.temp);
+	//var text = req.body.message
+	res.json({temp: temperature*2});
+});
+
 
 app.use('/test',testRouter);
 app.use('/api',router);
 app.use('/handMotion',handMotionRouter);
+app.use('/temp',tempMotionRouter);
+
 
 
 // Start listening for HTTP requests
