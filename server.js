@@ -10,6 +10,9 @@ app.use(bodyParser.json());
 
 var port = process.env.PORT || 3000;
 
+var width = 640;
+var height = 480;
+
 var testRouter = express.Router();
 testRouter.get('/',function(req,res){
 	console.log("Request Received"); 
@@ -88,7 +91,15 @@ picRouter.post('/',function(req,res){
 		else
 		{
 			console.log(faces[0].boundingPoly.vertices);
-			res.send(faces[0].boundingPoly.vertices);
+			var code = traceFaceMovement(faces[0].boundingPoly.vertices);
+			var command = {'command': code};
+			var payload = JSON.stringify(command);
+			if(code=='01'||code=='02')
+			{
+				//iot.sendCommandToIot(payload);
+			}
+			console.log("movement code: "+code);
+			res.send(code);
 		}
 	});
 
@@ -118,6 +129,36 @@ app.use('/temp',tempMotionRouter);
 app.use('/pic',picRouter); //test only
 app.use('/iot',iotRouter); //test only
 
+function traceFaceMovement(points)
+{
+	var maxX = points[0].x;
+	var maxY = points[0].y;
+	var minX = points[0].x;
+	var minY = points[0].y;
+
+	for(var i = 0; i < points.length; i++)
+	{
+		maxX = points[i].x > maxX ? points[i].x : maxX;
+		maxY = points[i].y > maxY ? points[i].y : maxY;
+		minX = points[i].x < minX ? points[i].x : minX;
+		minY = points[i].y < minY ? points[i].y : minY;
+	}
+
+
+	var command = "00";
+	var x = maxX - minX;
+	var y = maxY - minY;
+	if(y*1.0/height < 0.25)
+	{
+		command = "01";
+	}
+	else if(y*1.0/height > 0.75)
+	{
+		command = "02";
+	}
+
+	return command;
+}
 
 
 // Start listening for HTTP requests
