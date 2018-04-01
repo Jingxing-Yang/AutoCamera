@@ -180,13 +180,13 @@ function traceFaceMovement(points)
 	}
 
 	//face too far, move forward
-	else if(y*1.0/height < 0.4)
+	else if(y*1.0/height < 0.35)
 	{
 		command = "01";
 	}
 
 	//face too close, move backward
-	else if(y*1.0/height > 0.7)
+	else if(y*1.0/height > 0.55)
 	{
 		command = "02";
 	}
