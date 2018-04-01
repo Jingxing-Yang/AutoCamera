@@ -4,6 +4,7 @@ var cv = require('./cv');
 var fs = require('fs');// test
 var iot = require('./iot'); // test
 var app = express();
+var prev = "00";
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -151,15 +152,17 @@ function traceFaceMovement(points)
 	var mid = width/2.0;
 	var y = maxY - minY;
 	//face on the right, turn left
-	if(faceMid>mid && (faceMid-mid)*1.0/mid > 0.2)
+	if(faceMid>mid && (faceMid-mid)*1.0/mid > 0.2 && prev!="06")
 	{
 		command = "06";
+		prev = "06;"
 	}
 
 	//face on the left, turn right
-	else if(faceMid<mid && (mid-faceMid)*1.0/mid > 0.2)
+	else if(faceMid<mid && (mid-faceMid)*1.0/mid > 0.2 && prev!="05")
 	{
 		command = "05";
+		prev = "05;"
 	}
 
 	//face too far, move forward
