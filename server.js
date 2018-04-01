@@ -153,13 +153,13 @@ function traceFaceMovement(points)
 	//face on the right, turn left
 	if(faceMid>mid && (faceMid-mid)*1.0/mid > 0.2)
 	{
-		command = "05";
+		command = "06";
 	}
 
 	//face on the left, turn right
 	else if(faceMid<mid && (mid-faceMid)*1.0/mid > 0.2)
 	{
-		command = "06";
+		command = "05";
 	}
 
 	//face too far, move forward
