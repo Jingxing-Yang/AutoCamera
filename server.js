@@ -26,9 +26,32 @@ router.get('/:id',function(req,res){
 
 var handMotionRouter = express.Router();
 handMotionRouter.post('/',function(req,res){
-	console.log(req.body);
+	var dir = req.body.direction;
+	var code = '00';
+	if(dir=="left")
+	{
+		code = '03';
+	}
+	else if(dir=="right")
+	{
+		code = '04';
+	}
+	else if(dir=="forward")
+	{
+		code = '02';
+	}
+	else if(dir=="backward")
+	{
+		code = '01';
+	}
+	var command = {'command': code};
+	var jsonObj = {'data': command};
+	var payload = JSON.stringify(jsonObj);
+	iot.sendCommandToIot(payload);
+	console.log("Command Sent");
+	console.log(payload);
 	//var text = req.body.message
-	res.send("Message received");
+	res.send("move code "+ code +'\n');
 });
 
 var tempMotionRouter = express.Router();
