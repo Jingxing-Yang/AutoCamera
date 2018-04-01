@@ -38,16 +38,23 @@ handMotionRouter.post('/',function(req,res){
 	}
 	else if(dir=="forward")
 	{
-		code = '02';
+		code = '01';
 	}
 	else if(dir=="backward")
 	{
-		code = '01';
+		code = '02';
 	}
 	var command = {'command': code};
 	//var jsonObj = {'data': command};
 	var payload = JSON.stringify(command);
 	iot.sendCommandToIot(payload);
+	/*
+	setTimeout(function()
+	{
+		var stopCommand = {'command': '00'};
+		iot.sendCommandToIot(JSON.stringify(stopCommand));
+	},500);
+	*/
 	console.log("Moving "+dir);
 	console.log(payload);
 	//var text = req.body.message
@@ -84,6 +91,7 @@ picRouter.post('/',function(req,res){
 			res.send(faces[0].boundingPoly.vertices);
 		}
 	});
+
 	
 });
 
