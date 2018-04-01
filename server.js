@@ -90,14 +90,12 @@ picRouter.post('/',function(req,res){
 		}
 		else
 		{
-			console.log(faces[0].boundingPoly.vertices);
+			//console.log(faces[0].boundingPoly.vertices);
 			var code = traceFaceMovement(faces[0].boundingPoly.vertices);
 			var command = {'command': code};
 			var payload = JSON.stringify(command);
-			if(code=='01'||code=='02')
-			{
-				iot.sendCommandToIot(payload);
-			}
+			iot.sendCommandToIot(payload);
+
 			console.log("movement code: "+code);
 			res.send(code);
 		}
@@ -148,7 +146,7 @@ function traceFaceMovement(points)
 	var command = "00";
 	var x = maxX - minX;
 	var y = maxY - minY;
-	if(y*1.0/height < 0.25)
+	if(y*1.0/height < 0.4)
 	{
 		command = "01";
 	}
@@ -156,7 +154,7 @@ function traceFaceMovement(points)
 	{
 		command = "02";
 	}
-
+	console.log(maxY+" "+minY+" ratio: "+ y*1.0/height);
 	return command;
 }
 
