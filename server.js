@@ -152,7 +152,7 @@ function traceFaceMovement(points)
 	var mid = width/2.0;
 	var y = maxY - minY;
 	//face on the right, turn right
-	if(faceMid>mid && (faceMid-mid)*1.0/mid > 0.7 )
+	if(faceMid>mid && (faceMid-mid)*1.0/mid > 0.6 )
 	{
 		if(prev=="06")
 		{
@@ -166,7 +166,7 @@ function traceFaceMovement(points)
 	}
 
 	//face on the left, turn left
-	else if(faceMid<mid && (mid-faceMid)*1.0/mid > 0.7 )
+	else if(faceMid<mid && (mid-faceMid)*1.0/mid > 0.6 )
 	{
 		if(prev=="05")
 		{
