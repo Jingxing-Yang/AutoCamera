@@ -96,7 +96,7 @@ picRouter.post('/',function(req,res){
 			var payload = JSON.stringify(command);
 			if(code=='01'||code=='02')
 			{
-				//iot.sendCommandToIot(payload);
+				iot.sendCommandToIot(payload);
 			}
 			console.log("movement code: "+code);
 			res.send(code);
