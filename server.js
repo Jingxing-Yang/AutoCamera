@@ -29,8 +29,9 @@ handMotionRouter.post('/',function(req,res){
 });
 
 var tempMotionRouter = express.Router();
-handMotionRouter.post('/',function(req,res){
-	var temperature = console.log(req.body.temp);
+tempMotionRouter.post('/',function(req,res){
+	console.log(req.body);
+	var temperature = req.body.temp;
 	//var text = req.body.message
 	res.json({temp: temperature*2});
 });
