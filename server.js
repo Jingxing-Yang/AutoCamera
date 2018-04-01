@@ -149,11 +149,11 @@ function traceFaceMovement(points)
 	var command = "00";
 	var x = maxX - minX;
 	var y = maxY - minY;
-	if(y*1.0/height < 0.6)
+	if(y*1.0/height < 0.4)
 	{
 		command = "01";
 	}
-	else if(y*1.0/height > 0.7)
+	else if(y*1.0/height > 0.8)
 	{
 		command = "02";
 	}
