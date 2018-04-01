@@ -151,18 +151,32 @@ function traceFaceMovement(points)
 	var faceMid = (maxX + minX)/2.0;
 	var mid = width/2.0;
 	var y = maxY - minY;
-	//face on the right, turn left
-	if(faceMid>mid && (faceMid-mid)*1.0/mid > 0.2 && prev!="06")
+	//face on the right, turn right
+	if(faceMid>mid && (faceMid-mid)*1.0/mid > 0.7 )
 	{
-		command = "06";
-		prev = "06;"
+		if(prev=="06")
+		{
+			prev = "00";
+		}
+		else
+		{
+			command = "06";
+			prev = "06;"
+		}
 	}
 
-	//face on the left, turn right
-	else if(faceMid<mid && (mid-faceMid)*1.0/mid > 0.2 && prev!="05")
+	//face on the left, turn left
+	else if(faceMid<mid && (mid-faceMid)*1.0/mid > 0.7 )
 	{
-		command = "05";
-		prev = "05;"
+		if(prev=="05")
+		{
+			prev ="00";
+		}
+		else
+		{
+			command = "05";
+			prev = "05;"
+		}
 	}
 
 	//face too far, move forward
