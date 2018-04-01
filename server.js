@@ -147,12 +147,28 @@ function traceFaceMovement(points)
 
 
 	var command = "00";
-	var x = maxX - minX;
+	var faceMid = (maxX - minX)/2.0;
+	var mid = width/2.0;
 	var y = maxY - minY;
-	if(y*1.0/height < 0.4)
+	//face on the right, turn left
+	if(faceMid>mid && (faceMid-mid)*1.0/mid > 0.2)
+	{
+		command = "05";
+	}
+
+	//face on the left, turn right
+	else if(faceMid<mid && (mid-faceMid)*1.0/mid > 0.2)
+	{
+		command = "06";
+	}
+
+	//face too far, move forward
+	else if(y*1.0/height < 0.4)
 	{
 		command = "01";
 	}
+
+	//face too close, move backward
 	else if(y*1.0/height > 0.8)
 	{
 		command = "02";
