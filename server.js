@@ -1,5 +1,7 @@
 var express = require('express');
 var bodyParser = require("body-parser");
+var cv = require('./cv');
+var fs = require('fs');// test
 var app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -36,11 +38,31 @@ tempMotionRouter.post('/',function(req,res){
 	res.json({temp: temperature*2});
 });
 
+var picRouter = express.Router();
+picRouter.get('/',function(req,res){
+
+	var path = "face.jpg";
+
+	var imageFile = fs.readFileSync(path);
+
+	// Covert the image data to a Buffer and base64 encode it.
+	var inputFile = new Buffer(imageFile).toString('base64');
+	cv.detectFaces(inputFile, (err, faces) => {
+		if (err) {
+		  return callback(err);
+		}
+		else
+		{
+			res.send(faces[0].boundingPoly.vertices);
+		}
+	});
+});
 
 app.use('/test',testRouter);
 app.use('/api',router);
 app.use('/handMotion',handMotionRouter);
 app.use('/temp',tempMotionRouter);
+app.use('/pic',picRouter); //test only
 
 
 

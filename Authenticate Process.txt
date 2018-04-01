@@ -1,0 +1,4 @@
+https://cloud.google.com/vision/docs/auth#authenticating_with_application_default_credentials
+
+gcloud auth activate-service-account --key-file service_account.json
+export GOOGLE_APPLICATION_CREDENTIALS=service_account.json
