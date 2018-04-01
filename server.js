@@ -45,8 +45,8 @@ handMotionRouter.post('/',function(req,res){
 		code = '01';
 	}
 	var command = {'command': code};
-	var jsonObj = {'data': command};
-	var payload = JSON.stringify(jsonObj);
+	//var jsonObj = {'data': command};
+	var payload = JSON.stringify(command);
 	//iot.sendCommandToIot(payload);
 	//console.log("Command Sent");
 	console.log("Moving "+dir);
