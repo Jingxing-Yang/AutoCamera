@@ -63,23 +63,28 @@ tempMotionRouter.post('/',function(req,res){
 });
 
 var picRouter = express.Router();
-picRouter.get('/',function(req,res){
-
+picRouter.post('/',function(req,res){
+/*
 	var path = "face.jpg";
 
 	var imageFile = fs.readFileSync(path);
 
 	// Covert the image data to a Buffer and base64 encode it.
 	var inputFile = new Buffer(imageFile).toString('base64');
+	*/
+	var inputFile = req.body.pic;
+	
 	cv.detectFaces(inputFile, (err, faces) => {
 		if (err) {
 		  return callback(err);
 		}
 		else
 		{
+			console.log(faces[0].boundingPoly.vertices);
 			res.send(faces[0].boundingPoly.vertices);
 		}
 	});
+	
 });
 
 var num = 1024;
